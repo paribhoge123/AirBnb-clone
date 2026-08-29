@@ -14,3 +14,32 @@
 .nav-link {
   color: #131212 !important;
 }
+
+/* Footer */
+.f-info-links {
+  width: 100%;
+}
+.f-info-links a {
+  text-decoration: none;
+  color: #131212;
+}
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+.f-icons {
+  width: 100%;
+}
+.f-icons i {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: space-evenly;
+}
