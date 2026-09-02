@@ -102,3 +102,14 @@ body {
   background-color: #fe424d !important;
   border: none !important;
 }
+
+/* EDIT pg */
+.edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+}
+
+/* SHOW pg */
+.show-img{
+  height: 30vh;
+}
