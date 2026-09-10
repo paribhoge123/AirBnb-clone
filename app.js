@@ -43,11 +43,15 @@ app.get("/listings/:id", async (req, res) => {
   res.render("listings/show.ejs", { listing });
 });
 
-//Add
+//Add/Create Route
 app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
+  try {
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+  } catch (err) {
+    next(err);
+  }
 });
 
 //EDIT Route
@@ -74,6 +78,10 @@ app.delete("/listings/:id", async (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("it is working fine");
+});
+
+app.use((err, req, res, next) => {
+  res.send("something went wrong");
 });
 
 app.listen(8080, () => {
