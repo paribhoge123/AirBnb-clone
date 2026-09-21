@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 const validateListing = (req, res, next) => {
-  let { error } = listing.Schema.validate(req.body);
+  let { error } = listingSchema.validate(req.body);
 
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
