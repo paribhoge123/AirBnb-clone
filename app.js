@@ -5,6 +5,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -29,18 +30,19 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
+const sessionOptions = {
+  secret: "thisissecret",
+  resave: false,
+  saveUninitialized: true,
+};
+app.use(session(sessionOptions));
+
 app.get("/", (req, res) => {
   res.send("it is working fine");
 });
 
-
-
-
-
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
-
-
 
 app.all("/{*splat}", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
