@@ -5,17 +5,19 @@ const ExpressError = require("../utils/ExpressError.js");
 const Review = require("../models/reviews.js");
 const Listing = require("../models/listing.js");
 const { merge } = require("./listing");
-const { validateReview } = require("../middleware.js");
+const { validateReview, isLoggedIn, isAuthor } = require("../middleware.js");
 
 
 
 //Add Review Route
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
+    newReview.author = req.user._id;
 
     listing.reviews.push(newReview);
 
@@ -29,6 +31,8 @@ router.post(
 //Delete Review Route
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isAuthor,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, {
