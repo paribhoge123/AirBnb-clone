@@ -5,11 +5,10 @@ const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner } = require("../middleware.js");
 const { validateListing } = require("../middleware.js");
 
+const listingController = require("../controllers/listing.js");
+
 //INDEX Route
-router.get("/", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
-});
+router.get("/", wrapAsync(listingController.index));
 
 //NEW Route
 router.get("/new", isLoggedIn, (req, res) => {
@@ -22,7 +21,7 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id)
-      .populate({path : "reviews", populate: { path: "author" }})
+      .populate({ path: "reviews", populate: { path: "author" } })
       .populate("owner");
     if (!listing) {
       req.flash("error", "Cannot find that listing!");
