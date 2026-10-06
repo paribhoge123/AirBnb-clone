@@ -8,16 +8,17 @@
         class="card-img-top show-img"
         alt="listing_image"
       />
-      <div class="card-body">
-        <p class="card-text">
-          <p class="card-text"><b>Owned by : </b><i><%= listing.owner.username %></i></p>
-          <%= listing.description %><br />
-          &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") :
-          "N/A" %><br />
-          <%= listing.location %><br />
-          <%= listing.country %><br />
-        </p>
-      </div>
+      <div class="card-text">
+  <p>
+    <b>Owned by:</b>
+    <i><%= listing.owner.username %></i>
+  </p>
+
+  <%= listing.description %><br />
+  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %><br />
+  <%= listing.location %><br />
+  <%= listing.country %><br />
+</div>
     </div>
 <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
   <div class="btns">
@@ -41,15 +42,21 @@
       <div class="mb-3 mt-3">
         <hr />
         <label for="rating" class="form-label">Rating</label>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          id="rating"
-          name="review[rating]"
-          class="form-range"
-        />
+        
       </div>
+      <fieldset class="starability-slot">
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+  <input type="radio" id="second-rate1" name="review[rating]" value="1" />
+  <label for="second-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="second-rate2" name="review[rating]" value="2" />
+  <label for="second-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="second-rate3" name="review[rating]" value="3" />
+  <label for="second-rate3" title="Average">3 stars</label>
+  <input type="radio" id="second-rate4" name="review[rating]" value="4" />
+  <label for="second-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="second-rate5" name="review[rating]" value="5" />
+  <label for="second-rate5" title="Amazing">5 stars</label>
+</fieldset>
       <div class="mb-3 mt-3">
         <label for="comment" class="form-label">Comments</label>
         <textarea
@@ -72,7 +79,9 @@
       <div class="card col-5" >
         <div class="card-body">
           <h5 class="card-title">@<%= review.author.username %></h5>
-          <p class="card-text">Review : <%=review.rating%></p>
+           <p class="starability-result card-text" data-rating="<%=review.rating%>">
+   
+  </p>
           <p class="card-text"><%= review.comment %></p>
           <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
             <button class="btn btn-sm btn-dark">Delete</button>
