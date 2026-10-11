@@ -3,6 +3,15 @@ mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   accessToken: mapToken, // access token
   container: "map", // container ID
-  center: [79.0889, 21.1466], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+  center: listing.geometry.coordinates, // starting position [lng, lat]. Note that lat must be set between -90 and 90
   zoom: 9, // starting zoom
 });
+
+const marker = new mapboxgl.Marker({ color: "red" }) // create a new marker
+  .setLngLat(listing.geometry.coordinates) // set marker position [l\ng, lat]
+  .setPopup(
+    new mapboxgl.Popup({ offset: 25 }).setHTML(
+      `<h4>${listing.title}</h4><p>Exact location after booking</p>`,
+    ),
+  ) // add popup
+  .addTo(map); // add marker to map
