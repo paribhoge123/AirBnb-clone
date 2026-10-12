@@ -50,9 +50,9 @@ const sessionOptions = {
   },
 };
 
-app.get("/", (req, res) => {
-  res.send("it is working fine");
-});
+// app.get("/", (req, res) => {
+//   res.send("it is working fine");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash());

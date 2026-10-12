@@ -1,10 +1,18 @@
 <% layout("/layouts/boilerplate") %>
 <%= success%>
 
-<h3>Listings:</h3>
+<!-- <h3>Listings:</h3> -->
+ <div id="filters">
+  <div class="filter">
+     <div><i class="fa-solid fa-fire"></i></div><p>Trending</p>
+  </div>
+  <div class="filter">
+     <div><i class="fa-solid fa-bed"></i></div><p>Rooms</p>
+  </div>
+ </div>
 <br>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
 
   <% for(let listing of allListings) { %>
 
